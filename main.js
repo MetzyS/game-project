@@ -1,12 +1,24 @@
-import { GameLoop } from "./src/GameLoop";
+import "./style.css";
 import { resources } from "./src/Resource";
 import { Sprite } from "./src/Sprite";
 import { Vector2 } from "./src/Vector2";
+import { GameLoop } from "./src/GameLoop";
 import { DOWN, Input, LEFT, RIGHT, UP } from "./src/Input";
-import "./style.css";
 import { gridCells, isSpaceFree } from "./src/helpers/grid";
 import { moveTowards } from "./src/helpers/moveTowards";
 import { walls } from "./src/levels/level1";
+import { Animations } from "./src/Animations";
+import { FrameIndexPattern } from "./src/FrameIndexPattern";
+import {
+  STAND_DOWN,
+  STAND_LEFT,
+  STAND_RIGHT,
+  STAND_UP,
+  WALK_DOWN,
+  WALK_LEFT,
+  WALK_RIGHT,
+  WALK_UP,
+} from "./src/objects/Hero/heroAnimations";
 
 const canvas = document.querySelector("#game-canvas");
 // Context d'un canvas permet de "dessiner" dans le canvas.
@@ -29,9 +41,20 @@ const hero = new Sprite({
   vFrames: 8,
   frame: 1, // La valeur a changer pour modifier "l'animation" du héro
   position: new Vector2(gridCells(6), gridCells(5)),
+  animations: new Animations({
+    walkDown: new FrameIndexPattern(WALK_DOWN),
+    walkUp: new FrameIndexPattern(WALK_UP),
+    walkLeft: new FrameIndexPattern(WALK_LEFT),
+    walkRight: new FrameIndexPattern(WALK_RIGHT),
+    standDown: new FrameIndexPattern(STAND_DOWN),
+    standUp: new FrameIndexPattern(STAND_UP),
+    standLeft: new FrameIndexPattern(STAND_LEFT),
+    standRight: new FrameIndexPattern(STAND_RIGHT),
+  }),
 });
 
 const heroDestinationPosition = hero.position.duplicate();
+let heroFacing = DOWN;
 
 const shadow = new Sprite({
   resource: resources.images.shadow,
@@ -45,18 +68,33 @@ const input = new Input();
 /**
  * Met à jour les entitées
  */
-const update = () => {
+const update = (delta) => {
   // calcul en px de la distance entre la position actuelle et la destination
   const distance = moveTowards(hero, heroDestinationPosition, 1);
   const hasArrived = distance <= 1; // True/false est ce que le personnage est bien arrivé a destination
   if (hasArrived) {
     tryMove();
   }
+
+  // Animation du hero (mouvements etc.)
+  hero.step(delta);
 };
 
 // deplacement du hero
 const tryMove = () => {
   if (!input.direction) {
+    if (heroFacing === LEFT) {
+      hero.animations.play("standLeft");
+    }
+    if (heroFacing === RIGHT) {
+      hero.animations.play("standRight");
+    }
+    if (heroFacing === UP) {
+      hero.animations.play("standUp");
+    }
+    if (heroFacing === DOWN) {
+      hero.animations.play("standDown");
+    }
     return;
   }
 
@@ -69,20 +107,22 @@ const tryMove = () => {
   if (input.direction === DOWN) {
     // hero.position.y += heroSpeed;
     nextY += gridSize;
-    hero.frame = 0;
+    hero.animations.play("walkDown");
   }
   if (input.direction === UP) {
     nextY -= gridSize;
-    hero.frame = 6;
+    hero.animations.play("walkUp");
   }
   if (input.direction === LEFT) {
     nextX -= gridSize;
-    hero.frame = 9;
+    hero.animations.play("walkLeft");
   }
   if (input.direction === RIGHT) {
     nextX += gridSize;
-    hero.frame = 3;
+    hero.animations.play("walkRight");
   }
+
+  heroFacing = input.direction ?? heroFacing;
 
   // Check si il n'y a pas de wall @ nextX ou nextY (destination souhaitée input) en comparant avec walls{}
   if (isSpaceFree(walls, nextX, nextY)) {

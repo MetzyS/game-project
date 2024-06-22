@@ -9,6 +9,7 @@ export class Sprite {
     frame, // le frame que l'on veut afficher
     scale, // taille de ce que l'on veut afficher
     position, // ou on veut l'afficher
+    animations,
   }) {
     // On sauvegarde chaque paramètre donné
     this.resource = resource;
@@ -19,6 +20,7 @@ export class Sprite {
     this.frameMap = new Map(); // On crée un grid vide qui contiendra les frames du sprite sheet
     this.scale = scale ?? 1;
     this.position = position ?? new Vector2(0, 0);
+    this.animations = animations ?? null;
     this.buildFrameMap(); // Ligne 24
   }
 
@@ -36,6 +38,14 @@ export class Sprite {
         frameCount++;
       }
     }
+  }
+
+  step(delta) {
+    if (!this.animations) {
+      return;
+    }
+    this.animations.step(delta);
+    this.frame = this.animations.frame;
   }
 
   drawImage(ctx, x, y) {
