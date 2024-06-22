@@ -83,18 +83,10 @@ const update = (delta) => {
 // deplacement du hero
 const tryMove = () => {
   if (!input.direction) {
-    if (heroFacing === LEFT) {
-      hero.animations.play("standLeft");
-    }
-    if (heroFacing === RIGHT) {
-      hero.animations.play("standRight");
-    }
-    if (heroFacing === UP) {
-      hero.animations.play("standUp");
-    }
-    if (heroFacing === DOWN) {
-      hero.animations.play("standDown");
-    }
+    heroFacing === LEFT && hero.animations.play("standLeft");
+    heroFacing === RIGHT && hero.animations.play("standRight");
+    heroFacing === UP && hero.animations.play("standUp");
+    heroFacing === DOWN && hero.animations.play("standDown");
     return;
   }
 
@@ -104,23 +96,17 @@ const tryMove = () => {
   //   taille de chaque cell
   const gridSize = 16;
 
-  if (input.direction === DOWN) {
-    // hero.position.y += heroSpeed;
-    nextY += gridSize;
-    hero.animations.play("walkDown");
-  }
-  if (input.direction === UP) {
-    nextY -= gridSize;
-    hero.animations.play("walkUp");
-  }
-  if (input.direction === LEFT) {
-    nextX -= gridSize;
-    hero.animations.play("walkLeft");
-  }
-  if (input.direction === RIGHT) {
-    nextX += gridSize;
-    hero.animations.play("walkRight");
-  }
+  input.direction === DOWN &&
+    ((nextY += gridSize), hero.animations.play("walkDown"));
+
+  input.direction === UP &&
+    ((nextY -= gridSize), hero.animations.play("walkUp"));
+
+  input.direction === LEFT &&
+    ((nextX -= gridSize), hero.animations.play("walkLeft"));
+
+  input.direction === RIGHT &&
+    ((nextX += gridSize), hero.animations.play("walkRight"));
 
   heroFacing = input.direction ?? heroFacing;
 
