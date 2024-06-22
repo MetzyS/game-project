@@ -22,7 +22,7 @@ walls.add(`192,16`);
 walls.add(`208,16`);
 walls.add(`240,32`);
 // => droite
-walls.add(`256,48`);
+// walls.add(`256,48`);
 walls.add(`256,64`);
 walls.add(`256,80`);
 walls.add(`256,96`);

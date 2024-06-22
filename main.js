@@ -8,6 +8,7 @@ import { gridCells } from "./src/helpers/grid";
 import { GameObject } from "./src/GameObject";
 import { Hero } from "./src/objects/Hero/Hero";
 import { events } from "./src/Events";
+import { Camera } from "./src/Camera";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
@@ -23,7 +24,6 @@ const skySprite = new Sprite({
   resource: resources.images.sky,
   frameSize: new Vector2(320, 180), // toute la taille de la frame
 });
-mainScene.addChild(skySprite);
 
 const groundSprite = new Sprite({
   resource: resources.images.ground,
@@ -34,12 +34,12 @@ mainScene.addChild(groundSprite);
 const hero = new Hero(gridCells(6), gridCells(5));
 mainScene.addChild(hero);
 
+// Ajout camera
+const camera = new Camera();
+mainScene.addChild(camera);
+
 // Ajout des inputs
 mainScene.input = new Input();
-
-events.on("HERO_POSITION", mainScene, (heroPosition) => {
-  console.log("HERO MOVED", heroPosition);
-});
 
 // Creation de le l'update et draw loop
 const update = (delta) => {
@@ -48,7 +48,24 @@ const update = (delta) => {
 
 // Render mainScene dans le canvas (ctx)
 const draw = () => {
+  // Clear le canvas
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // attache le sprite du ciel à 0,0 pour éviter qu'il bouge avec la caméra
+  skySprite.drawImage(ctx, 0, 0);
+
+  // gestion camera
+  // Save le current state (pour l'offest de la camera)
+  ctx.save();
+
+  // Offset cam
+  ctx.translate(camera.position.x, camera.position.y);
+
+  // Draw les la mainScene avec les objets
   mainScene.draw(ctx, 0, 0);
+
+  // Restaure le state original
+  ctx.restore();
 };
 
 // Start the game
