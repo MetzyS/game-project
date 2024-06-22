@@ -1,6 +1,7 @@
+import { GameObject } from "./GameObject";
 import { Vector2 } from "./Vector2";
 
-export class Sprite {
+export class Sprite extends GameObject {
   constructor({
     resource, // l'image que l'on veut afficher
     frameSize, // taille du découpage de l'image (car une image peut contenir plusieurs modèles ex: hero-sheet)
@@ -11,6 +12,7 @@ export class Sprite {
     position, // ou on veut l'afficher
     animations,
   }) {
+    super({});
     // On sauvegarde chaque paramètre donné
     this.resource = resource;
     this.frameSize = frameSize ?? new Vector2(16, 16); // taille de la frame (au cas ou dans le sprite sheet il y ait des frames + grandes que les autres ex: batiments...), par défaut 16px*16px
