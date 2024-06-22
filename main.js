@@ -7,6 +7,7 @@ import { Input } from "./src/Input";
 import { gridCells } from "./src/helpers/grid";
 import { GameObject } from "./src/GameObject";
 import { Hero } from "./src/objects/Hero/Hero";
+import { events } from "./src/Events";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
@@ -35,6 +36,10 @@ mainScene.addChild(hero);
 
 // Ajout des inputs
 mainScene.input = new Input();
+
+events.on("HERO_POSITION", mainScene, (heroPosition) => {
+  console.log("HERO MOVED", heroPosition);
+});
 
 // Creation de le l'update et draw loop
 const update = (delta) => {
