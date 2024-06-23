@@ -1,9 +1,9 @@
 import "./style.css";
 import { Vector2 } from "./src/Vector2";
 import { GameLoop } from "./src/GameLoop";
-import { events } from "./src/Events";
 import { Main } from "./src/objects/Main/Main";
 import { OutdoorLevel1 } from "./src/levels/OutdoorLevel1";
+import { CaveLevel1 } from "./src/levels/CaveLevel1";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
@@ -14,11 +14,8 @@ const mainScene = new Main({
   position: new Vector2(0, 0),
 });
 
-mainScene.setLevel(new OutdoorLevel1());
-
-events.on("HERO_EXITS", mainScene, () => {
-  console.log("CHANGE THE MAP");
-});
+// mainScene.setLevel(new OutdoorLevel1());
+mainScene.setLevel(new CaveLevel1());
 
 // Creation de le l'update et draw loop
 const update = (delta) => {

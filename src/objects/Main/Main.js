@@ -1,4 +1,5 @@
 import { Camera } from "../../Camera";
+import { events } from "../../Events";
 import { GameObject } from "../../GameObject";
 import { Input } from "../../Input";
 import { Inventory } from "../Inventory/Inventory";
@@ -13,6 +14,14 @@ export class Main extends GameObject {
     this.input = new Input(); // Ajout des inputs
     this.camera = new Camera(); // Caméra
     this.inventory = new Inventory(); // Inventaire
+  }
+
+  ready() {
+    console.log("CHANGE_LEVEL", this);
+    // Listen l'event "CHANGE_LEVEL" et fait passer le paramètre newLevelInstance à this.setLevel (pour changer de niveau)
+    events.on("CHANGE_LEVEL", this, (newLevelInstance) => {
+      this.setLevel(newLevelInstance);
+    });
   }
 
   /**

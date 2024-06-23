@@ -1,3 +1,4 @@
+import { events } from "../Events";
 import { resources } from "../Resource";
 import { Sprite } from "../Sprite";
 import { Vector2 } from "../Vector2";
@@ -6,6 +7,7 @@ import { Exit } from "../objects/Exit/Exit";
 import { Hero } from "../objects/Hero/Hero";
 import { Level } from "../objects/Level/Level";
 import { Rod } from "../objects/Rod/Rod";
+import { CaveLevel1 } from "./CaveLevel1";
 
 export class OutdoorLevel1 extends Level {
   constructor() {
@@ -97,5 +99,13 @@ export class OutdoorLevel1 extends Level {
 
     // maison
     this.walls.add(`224,64`);
+  }
+
+  ready() {
+    events.on("HERO_EXITS", this, () => {
+      console.log("HERO_EXITS", this);
+      // Une fois que le hero marche sur l'exit point (escaliers), on emmet un signal "CHANGE_LEVEL" et Main (root scene) s'occupera du reste
+      events.emit("CHANGE_LEVEL", new CaveLevel1());
+    });
   }
 }
