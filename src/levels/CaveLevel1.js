@@ -9,8 +9,10 @@ import { Level } from "../objects/Level/Level";
 import { Rod } from "../objects/Rod/Rod";
 import { OutdoorLevel1 } from "./OutdoorLevel1";
 
+const DEFAULT_HERO_POSITION = new Vector2(gridCells(3), gridCells(6));
+
 export class CaveLevel1 extends Level {
-  constructor() {
+  constructor(params = {}) {
     super({});
 
     this.background = new Sprite({
@@ -30,7 +32,8 @@ export class CaveLevel1 extends Level {
     this.addChild(exit);
 
     // Spawn le hero
-    const hero = new Hero(gridCells(4), gridCells(5));
+    this.heroStartPosition = params.heroPosition ?? DEFAULT_HERO_POSITION;
+    const hero = new Hero(this.heroStartPosition.x, this.heroStartPosition.y);
     this.addChild(hero);
 
     const rod = new Rod(gridCells(9), gridCells(6));
@@ -43,7 +46,12 @@ export class CaveLevel1 extends Level {
     events.on("HERO_EXITS", this, () => {
       console.log("HERO_EXITS", this);
       // Une fois que le hero marche sur l'exit point (escaliers), on emmet un signal "CHANGE_LEVEL" et Main (root scene) s'occupera du reste
-      events.emit("CHANGE_LEVEL", new OutdoorLevel1());
+      events.emit(
+        "CHANGE_LEVEL",
+        new OutdoorLevel1({
+          heroPosition: new Vector2(gridCells(7), gridCells(3)),
+        })
+      );
     });
   }
 }

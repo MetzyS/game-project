@@ -14,8 +14,8 @@ const mainScene = new Main({
   position: new Vector2(0, 0),
 });
 
-// mainScene.setLevel(new OutdoorLevel1());
-mainScene.setLevel(new CaveLevel1());
+mainScene.setLevel(new OutdoorLevel1());
+// mainScene.setLevel(new CaveLevel1());
 
 // Creation de le l'update et draw loop
 const update = (delta) => {
