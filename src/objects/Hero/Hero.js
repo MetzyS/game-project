@@ -8,7 +8,6 @@ import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
-// import { walls } from "../../levels/level1";
 import {
   PICK_UP_DOWN,
   STAND_DOWN,
@@ -94,6 +93,11 @@ export class Hero extends GameObject {
     events.emit("HERO_POSITION", this.position);
   }
 
+  /**
+   *
+   * @param {Main} root
+   * @returns
+   */
   tryMove(root) {
     const { input } = root;
     // deplacement du hero
@@ -126,7 +130,8 @@ export class Hero extends GameObject {
     this.facingDirection = input.direction ?? this.facingDirection;
 
     // Check si il n'y a pas de wall @ nextX ou nextY (destination souhaitée input) en comparant avec walls{}
-    if (isSpaceFree(walls, nextX, nextY)) {
+    if (isSpaceFree(root.level?.walls, nextX, nextY)) {
+      // check
       this.destinationPosition.x = nextX;
       this.destinationPosition.y = nextY;
     }
