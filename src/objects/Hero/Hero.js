@@ -61,6 +61,7 @@ export class Hero extends GameObject {
     this.itemPickupTime = 0; // permettra de stopper les mouvements un certain temps (en ms) lorsque le hero ramasse un objet
     this.itemPickupShell = null; // permettra d'afficher l'objet (une copie de l'objet) ramassé au dessus de la tête du hero
 
+    // Reaction à l'event "PICKS_UP_ITEM"
     events.on("HERO_PICKS_UP_ITEM", this, (data) => {
       this.onPickUpItem(data);
     });

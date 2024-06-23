@@ -9,6 +9,7 @@ import { GameObject } from "./src/GameObject";
 import { Hero } from "./src/objects/Hero/Hero";
 import { Camera } from "./src/Camera";
 import { Rod } from "./src/objects/Rod/Rod";
+import { Inventory } from "./src/objects/Inventory/Inventory";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
@@ -42,6 +43,9 @@ mainScene.addChild(camera);
 const rod = new Rod(gridCells(7), gridCells(6));
 mainScene.addChild(rod);
 
+// Inventaire
+const inventory = new Inventory();
+
 // Ajout des inputs
 mainScene.input = new Input();
 
@@ -70,6 +74,9 @@ const draw = () => {
 
   // Restaure le state original
   ctx.restore();
+
+  //
+  inventory.draw(ctx, 0, 0);
 };
 
 // Start the game
