@@ -7,7 +7,6 @@ import { Input } from "./src/Input";
 import { gridCells } from "./src/helpers/grid";
 import { GameObject } from "./src/GameObject";
 import { Hero } from "./src/objects/Hero/Hero";
-import { events } from "./src/Events";
 import { Camera } from "./src/Camera";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.

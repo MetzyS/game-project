@@ -10,13 +10,13 @@ export class Input {
     this.heldDirections = [];
     // eventlisteners pour diriger le hero keydown et keyup
     document.addEventListener("keydown", (e) => {
-      if (e.code === "ArrowUp" || e.code === "KeyZ") {
+      if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowPressed(UP);
       }
       if (e.code === "ArrowDown" || e.code === "KeyS") {
         this.onArrowPressed(DOWN);
       }
-      if (e.code === "ArrowLeft" || e.code === "KeyQ") {
+      if (e.code === "ArrowLeft" || e.code === "KeyA") {
         this.onArrowPressed(LEFT);
       }
       if (e.code === "ArrowRight" || e.code === "KeyD") {
@@ -25,13 +25,13 @@ export class Input {
     });
 
     document.addEventListener("keyup", (e) => {
-      if (e.code === "ArrowUp" || e.code === "KeyZ") {
+      if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowReleased(UP);
       }
       if (e.code === "ArrowDown" || e.code === "KeyS") {
         this.onArrowReleased(DOWN);
       }
-      if (e.code === "ArrowLeft" || e.code === "KeyQ") {
+      if (e.code === "ArrowLeft" || e.code === "KeyA") {
         this.onArrowReleased(LEFT);
       }
       if (e.code === "ArrowRight" || e.code === "KeyD") {
