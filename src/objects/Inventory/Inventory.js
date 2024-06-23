@@ -25,6 +25,7 @@ export class Inventory extends GameObject {
 
     // Reaction à l'event "PICKS_UP_ITEM"
     events.on("HERO_PICKS_UP_ITEM", this, (data) => {
+      console.log("HERO_PICKS_UP_ITEM", this);
       // affichage de l'item ramassé dont les infos sont donnés en paramètres (data)
       //   Pour afficher les items, on les ajoute a "this.items=[]" qui correspond à l'inventaire
       this.nextId += 1; // On commence par créer l'ID de l'item ramassé dans l'inventaire (ids => ordre de ramassage)

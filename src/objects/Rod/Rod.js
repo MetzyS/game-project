@@ -18,7 +18,7 @@ export class Rod extends GameObject {
   }
 
   ready() {
-    console.log("rod is ready");
+    // console.log("rod is ready");
     events.on("HERO_POSITION", this, (pos) => {
       // detect overlap
       const roundedHeroX = Math.round(pos.x);
@@ -37,7 +37,7 @@ export class Rod extends GameObject {
   onCollideWithHero() {
     // Suppr l'item de la scene
     this.destroy();
-
+    console.log("HERO_PICKS_UP_ITEM", this);
     events.emit("HERO_PICKS_UP_ITEM", {
       image: resources.images.rod,
       position: this.position,

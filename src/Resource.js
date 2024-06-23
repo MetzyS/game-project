@@ -2,11 +2,16 @@ class Resources {
   constructor() {
     // assets a charger que le jeu utilise
     this.toLoad = {
-      sky: "/sprites/sky.png",
-      ground: "/sprites/ground.png",
       hero: "/sprites/hero-sheet.png",
       shadow: "/sprites/shadow.png",
       rod: "/sprites/rod.png",
+      exit: "/sprites/exit.png",
+      // Outdoor level
+      sky: "/sprites/sky.png",
+      ground: "/sprites/ground.png",
+      // Cave level
+      cave: "/sprites/cave.png",
+      caveGround: "/sprites/cave-ground.png",
     };
 
     // bucket pour tout les assets

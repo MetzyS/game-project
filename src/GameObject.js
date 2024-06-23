@@ -65,7 +65,7 @@ export class GameObject {
   }
 
   removeChild(gameObject) {
-    console.log("GameObject.removeChild", gameObject);
+    // console.log("GameObject.removeChild", gameObject);
     events.unsubscribe(gameObject);
     this.children = this.children.filter((object) => {
       return gameObject !== object;

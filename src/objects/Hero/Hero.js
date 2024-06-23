@@ -8,7 +8,7 @@ import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
 import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
-import { walls } from "../../levels/level1";
+// import { walls } from "../../levels/level1";
 import {
   PICK_UP_DOWN,
   STAND_DOWN,
@@ -63,6 +63,7 @@ export class Hero extends GameObject {
 
     // Reaction à l'event "PICKS_UP_ITEM"
     events.on("HERO_PICKS_UP_ITEM", this, (data) => {
+      console.log("HERO_PICKS_UP_ITEM", this);
       this.onPickUpItem(data);
     });
   }
