@@ -6,10 +6,11 @@ import { DOWN, LEFT, RIGHT, UP } from "../../Input";
 import { resources } from "../../Resource";
 import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
-import { gridCells, isSpaceFree } from "../../helpers/grid";
+import { isSpaceFree } from "../../helpers/grid";
 import { moveTowards } from "../../helpers/moveTowards";
 import { walls } from "../../levels/level1";
 import {
+  PICK_UP_DOWN,
   STAND_DOWN,
   STAND_LEFT,
   STAND_RIGHT,
@@ -49,6 +50,7 @@ export class Hero extends GameObject {
         standUp: new FrameIndexPattern(STAND_UP),
         standLeft: new FrameIndexPattern(STAND_LEFT),
         standRight: new FrameIndexPattern(STAND_RIGHT),
+        pickUpDown: new FrameIndexPattern(PICK_UP_DOWN),
       }),
     });
 
@@ -56,9 +58,20 @@ export class Hero extends GameObject {
 
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
+    this.itemPickupTime = 0; // permettra de stopper les mouvements un certain temps (en ms) lorsque le hero ramasse un objet
+    this.itemPickupShell = null; // permettra d'afficher l'objet (une copie de l'objet) ramassé au dessus de la tête du hero
+
+    events.on("HERO_PICKS_UP_ITEM", this, (data) => {
+      this.onPickUpItem(data);
+    });
   }
 
-  step(_delta, root) {
+  step(delta, root) {
+    if (this.itemPickupTime > 0) {
+      this.workOnItemPickup(delta);
+      return;
+    }
+
     // calcul en px de la distance entre la position actuelle et la destination
     const distance = moveTowards(this, this.destinationPosition, 1);
     const hasArrived = distance <= 1; // True/false est ce que le personnage est bien arrivé a destination
@@ -114,6 +127,32 @@ export class Hero extends GameObject {
     if (isSpaceFree(walls, nextX, nextY)) {
       this.destinationPosition.x = nextX;
       this.destinationPosition.y = nextY;
+    }
+  }
+
+  onPickUpItem({ image, position }) {
+    // Arrête le hero sur la position de l'item qu'il est en train de ramasser
+    this.destinationPosition = position.duplicate();
+
+    // Debut de l'animation
+    this.itemPickupTime = 1000; // en ms
+    this.itemPickupShell = new GameObject({}); // on crée une copie de l'objet ramassé (puisque l'objet au sol a été supprimé)
+    this.itemPickupShell.addChild(
+      new Sprite({
+        resource: image,
+        position: new Vector2(0, -18), // -18px => au dessus de la tête du hero
+      })
+    );
+    this.addChild(this.itemPickupShell);
+  }
+
+  workOnItemPickup(delta) {
+    this.itemPickupTime -= delta;
+    this.body.animations.play("pickUpDown");
+
+    // A la fin de l'animation, supprime la copie de l'objet tenue au dessus de la tête du héro
+    if (this.itemPickupTime <= 0) {
+      this.itemPickupShell.destroy();
     }
   }
 }

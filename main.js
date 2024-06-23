@@ -8,6 +8,7 @@ import { gridCells } from "./src/helpers/grid";
 import { GameObject } from "./src/GameObject";
 import { Hero } from "./src/objects/Hero/Hero";
 import { Camera } from "./src/Camera";
+import { Rod } from "./src/objects/Rod/Rod";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
@@ -36,6 +37,10 @@ mainScene.addChild(hero);
 // Ajout camera
 const camera = new Camera();
 mainScene.addChild(camera);
+
+// Ajout item Rod
+const rod = new Rod(gridCells(7), gridCells(6));
+mainScene.addChild(rod);
 
 // Ajout des inputs
 mainScene.input = new Input();
