@@ -6,6 +6,7 @@ export class GameObject {
     this.position = position ?? new Vector2(0, 0);
     this.children = [];
     this.parent = null;
+    this.hasReadyBeenCalled = false; // Evite que les objets non utilisé dans le jeu puissent "listen to events"
   }
 
   // Début de la loop
@@ -13,8 +14,19 @@ export class GameObject {
     // Call .update de chaque child
     this.children.forEach((child) => child.stepEntry(delta, root));
 
+    // Call ready on the first frame
+    if (!this.hasReadyBeenCalled) {
+      this.hasReadyBeenCalled = true;
+      this.ready();
+    }
+
     this.step(delta, root);
   }
+
+  /**
+   * Called before the first step, en gros on crée une methode de lifecycle
+   */
+  ready() {}
 
   /**
    * Fired une fois par frame
