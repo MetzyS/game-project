@@ -5,6 +5,7 @@ import { Vector2 } from "../Vector2";
 import { gridCells } from "../helpers/grid";
 import { Exit } from "../objects/Exit/Exit";
 import { Hero } from "../objects/Hero/Hero";
+import { House } from "../objects/House/House";
 import { Level } from "../objects/Level/Level";
 import { Rod } from "../objects/Rod/Rod";
 import { CaveLevel1 } from "./CaveLevel1";
@@ -27,6 +28,9 @@ export class OutdoorLevel1 extends Level {
 
     const exit = new Exit(gridCells(6), gridCells(3));
     this.addChild(exit);
+
+    // const house = new House(gridCells(5), gridCells(1));
+    // this.addChild(house);
 
     this.heroStartPosition = params.heroPosition ?? DEFAULT_HERO_POSITION;
     const hero = new Hero(this.heroStartPosition.x, this.heroStartPosition.y);
