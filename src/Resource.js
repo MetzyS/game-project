@@ -19,6 +19,7 @@ class Resources {
 
       // HUD
       textBox: "/sprites/text-box.png",
+      fontWhite: "/sprites/Sheet_Font1_White.png",
     };
 
     // bucket pour tout les assets
