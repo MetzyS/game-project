@@ -47,8 +47,19 @@ export class GameObject {
     this.drawImage(ctx, drawPosX, drawPosY);
 
     // rendering childrens (children après image car par exemple si le hero à un chapeau (qui sera un child), le hero sera draw avant le chapeau)
-    this.children.forEach((child) => child.draw(ctx, drawPosX, drawPosY));
+    this.getDrawChildrenOrdered().forEach((child) =>
+      child.draw(ctx, drawPosX, drawPosY)
+    );
   }
+
+  // Trie les enfants à draw en ordre ascendant via leur position.y
+  // permet le layering, draw y de haut en bas pour avoir un effet devant/derrière
+  getDrawChildrenOrdered() {
+    return [...this.children].sort((a, b) => {
+      return a.position.y > b.position.y ? 1 : -1;
+    });
+  }
+
   drawImage(ctx, drawPosX, drawPosY) {
     //...
   }
