@@ -56,6 +56,10 @@ export class GameObject {
   // permet le layering, draw y de haut en bas pour avoir un effet devant/derrière
   getDrawChildrenOrdered() {
     return [...this.children].sort((a, b) => {
+      // Contourne le layering pour afficher toujours au sol (ex: pour les escaliers, exits...)
+      if (b.drawLayer === "FLOOR") {
+        return 1;
+      }
       return a.position.y > b.position.y ? 1 : -1;
     });
   }
