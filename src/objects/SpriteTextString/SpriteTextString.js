@@ -65,6 +65,13 @@ export class SpriteTextString extends GameObject {
     let cursorY = drawPosY + PADDING_TOP;
 
     this.words.forEach((word) => {
+      // Verification si le prochain mot entre dans la ligne
+      const spaceRemaining = drawPosX + LINE_WIDTH_MAX - cursorX;
+      if (spaceRemaining < word.wordWidth) {
+        cursorX = drawPosX + PADDING_LEFT; // reset la position horizontale
+        cursorY += LINE_VERTICAL_HEIGHT; // modifie la position verticale (pour écrire à la ligne en dessous)
+      }
+
       word.chars.forEach((char) => {
         const { sprite, width } = char;
 

@@ -17,7 +17,9 @@ export class Main extends GameObject {
     this.camera = new Camera(); // Caméra
     this.inventory = new Inventory(); // Inventaire
     // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
-    this.textbox = new SpriteTextString("Salut! Ceci est un dialogue.");
+    this.textbox = new SpriteTextString(
+      "Salut! Ceci est un dialogue. Salut! Ceci est un dialogue. Salut! Ceci est un dialogue."
+    );
   }
 
   ready() {
