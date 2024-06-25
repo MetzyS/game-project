@@ -3,6 +3,7 @@ import { events } from "../../Events";
 import { GameObject } from "../../GameObject";
 import { Input } from "../../Input";
 import { Inventory } from "../Inventory/Inventory";
+import { TextBox } from "../TextBox/TextBox";
 
 /**
  * Scene principale (root, coeur du jeu) dans laquelle tout les évenements sont gérés => affichage des GameObjects (levels, hero, inventory...), gestion des Inputs, gestion de la Camera...
@@ -14,6 +15,7 @@ export class Main extends GameObject {
     this.input = new Input(); // Ajout des inputs
     this.camera = new Camera(); // Caméra
     this.inventory = new Inventory(); // Inventaire
+    this.textbox = new TextBox();
   }
 
   ready() {
@@ -60,5 +62,6 @@ export class Main extends GameObject {
       this.inventory.position.x,
       this.inventory.position.y
     );
+    this.textbox.draw(ctx, 0, 0);
   }
 }

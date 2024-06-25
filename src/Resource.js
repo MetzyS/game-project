@@ -16,6 +16,9 @@ class Resources {
       house: "/sprites/house.png",
       // NPCs
       knight: "/sprites/knight-sheet-1.png",
+
+      // HUD
+      textBox: "/sprites/text-box.png",
     };
 
     // bucket pour tout les assets

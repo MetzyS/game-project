@@ -3,7 +3,6 @@ import { Vector2 } from "./src/Vector2";
 import { GameLoop } from "./src/GameLoop";
 import { Main } from "./src/objects/Main/Main";
 import { OutdoorLevel1 } from "./src/levels/OutdoorLevel1";
-import { CaveLevel1 } from "./src/levels/CaveLevel1";
 
 // Context d'un canvas permet de "dessiner" dans le canvas.
 const canvas = document.querySelector("#game-canvas");
