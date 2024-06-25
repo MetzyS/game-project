@@ -14,6 +14,8 @@ class Resources {
       caveGround: "/sprites/cave-ground.png",
       // Houses
       house: "/sprites/house.png",
+      // NPCs
+      knight: "/sprites/knight-sheet-1.png",
     };
 
     // bucket pour tout les assets

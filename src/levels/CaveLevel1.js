@@ -6,6 +6,7 @@ import { gridCells } from "../helpers/grid";
 import { Exit } from "../objects/Exit/Exit";
 import { Hero } from "../objects/Hero/Hero";
 import { Level } from "../objects/Level/Level";
+import { Npc } from "../objects/Npc/Npc";
 import { Rod } from "../objects/Rod/Rod";
 import { OutdoorLevel1 } from "./OutdoorLevel1";
 
@@ -38,6 +39,9 @@ export class CaveLevel1 extends Level {
 
     const rod = new Rod(gridCells(9), gridCells(6));
     this.addChild(rod);
+
+    const npc = new Npc(gridCells(5), gridCells(5));
+    this.addChild(npc);
 
     this.walls = new Set();
   }

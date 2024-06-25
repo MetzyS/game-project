@@ -7,6 +7,8 @@ export class GameObject {
     this.children = [];
     this.parent = null;
     this.hasReadyBeenCalled = false; // Evite que les objets non utilisé dans le jeu puissent "listen to events"
+    this.isSolid = false; // Permet de "prendre de la place" et ajouter de la collision
+    this.drawLayer = null; // Permet d'avoir du layering (devant/derrière) par rapport à la position y
   }
 
   // Début de la loop

@@ -129,9 +129,17 @@ export class Hero extends GameObject {
 
     this.facingDirection = input.direction ?? this.facingDirection;
 
-    // Check si il n'y a pas de wall @ nextX ou nextY (destination souhaitée input) en comparant avec walls{}
-    if (isSpaceFree(root.level?.walls, nextX, nextY)) {
-      // check
+    // Check si il n'y a pas de wall/collision @ nextX ou nextY (destination souhaitée input)
+
+    const spaceIsFree = isSpaceFree(root.level?.walls, nextX, nextY);
+    // parent = le niveau, children = tout les objets dans le niveau
+    // verification si à la destination du hero il y a un objet solide (avec collisions)
+    const solidBodyAtSpace = this.parent.children.find((c) => {
+      return c.isSolid && c.position.x === nextX && c.position.y === nextY;
+    });
+
+    // Espace libre && pas d'objets solide = deplacement possible
+    if (spaceIsFree && !solidBodyAtSpace) {
       this.destinationPosition.x = nextX;
       this.destinationPosition.y = nextY;
     }
