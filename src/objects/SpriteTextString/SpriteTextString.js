@@ -1,4 +1,6 @@
+import { events } from "../../Events";
 import { GameObject } from "../../GameObject";
+import { Input } from "../../Input";
 import { resources } from "../../Resource";
 import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
@@ -54,11 +56,29 @@ export class SpriteTextString extends GameObject {
 
     // Typewriter
     this.showingIndex = 0; // index de la lettre a afficher
+    this.finalIndex = this.words.reduce(
+      (acc, word) => acc + word.chars.length,
+      0
+    );
     this.textSpeed = 30; // temps en ms entre chaque lettres
     this.timeUntilNextShow = this.textSpeed;
   }
 
-  step(delta) {
+  step(delta, root) {
+    // Listen user Input
+    /** @type {Input} */
+    const input = root.input;
+    if (input?.getActionJustPressed("Space")) {
+      if (this.showingIndex < this.finalIndex) {
+        // Skip effet typewriter
+        this.showingIndex = this.finalIndex;
+        return;
+      }
+
+      // Ferme la textbox
+      events.emit("END_TEXT_BOX");
+    }
+
     // delta = durée entre les refresh de la gameloop
     this.timeUntilNextShow -= delta;
     if (this.timeUntilNextShow <= 0) {
