@@ -33,6 +33,12 @@ export class Main extends GameObject {
       const textbox = new SpriteTextString("Salut! Ceci est un dialogue.");
       this.addChild(textbox);
       events.emit("START_TEXT_BOX");
+
+      // Attends de recevoir l'event END_TEXT_BOX, supprime la text box et unsubscribe (ne listen plus) "END_TEXT_BOX" (pour éviter les memory leaks)
+      const endingSub = events.on("END_TEXT_BOX", this, () => {
+        textbox.destroy();
+        events.off(endingSub);
+      });
     });
   }
 
