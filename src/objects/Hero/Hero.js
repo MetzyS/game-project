@@ -73,6 +73,15 @@ export class Hero extends GameObject {
       return;
     }
 
+    // Check for input
+    /** @type {Input} */
+    const input = root.input;
+    // verif si l'utilisateur appuie sur espace => emit un event "HERO_REQUEST_ACTION"
+    if (input?.getActionJustPressed("Space")) {
+      console.log("HERO_REQUEST_ACTION", this);
+      events.emit("HERO_REQUEST_ACTION");
+    }
+
     // calcul en px de la distance entre la position actuelle et la destination
     const distance = moveTowards(this, this.destinationPosition, 1);
     const hasArrived = distance <= 1; // True/false est ce que le personnage est bien arrivé a destination

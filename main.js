@@ -19,6 +19,7 @@ mainScene.setLevel(new OutdoorLevel1());
 // Creation de le l'update et draw loop
 const update = (delta) => {
   mainScene.stepEntry(delta, mainScene);
+  mainScene.input?.update(); // refresh les inputs après chaque frame (a faire après les steps pour permettre aux autres objets/classes de vérifier si une touche est pressée ou non)
 };
 
 // Render mainScene dans le canvas (ctx)
