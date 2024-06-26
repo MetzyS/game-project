@@ -4,13 +4,16 @@ import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
 
 export class Npc extends GameObject {
-  constructor(x, y) {
+  constructor(x, y, textContent) {
     super({
       position: new Vector2(x, y),
     });
 
     // Collision
     this.isSolid = true;
+
+    // Texte dialogue
+    this.textContent = textContent;
 
     const shadow = new Sprite({
       resource: resources.images.shadow,
@@ -31,9 +34,11 @@ export class Npc extends GameObject {
   }
 
   getContent() {
+    // Ici logique de story flag (si tel action faite => tel dialogue...)
+
     return {
       portraitFrame: 1, // frame 1 du spreadsheet
-      string: "Comment m'avez vous trouve!?",
+      string: this.textContent,
     };
   }
 }
