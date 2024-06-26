@@ -8,8 +8,14 @@ export class Input {
     // heldDirections permettra d'appuyer simultannément sur plusieurs touches directionnelles, sans que le jeu oublies celle qui a été enfoncée en premier
     // on va l'appeller la "queue"
     this.heldDirections = [];
+
+    //
+    this.keys = {};
+    this.lastKeys = {};
+
     // eventlisteners pour diriger le hero keydown et keyup
     document.addEventListener("keydown", (e) => {
+      this.keys[e.code] = true; // touche e.code enfoncée => true
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowPressed(UP);
       }
@@ -25,6 +31,7 @@ export class Input {
     });
 
     document.addEventListener("keyup", (e) => {
+      this.keys[e.code] = false; // touche e.code relachée = false
       if (e.code === "ArrowUp" || e.code === "KeyW") {
         this.onArrowReleased(UP);
       }
@@ -42,6 +49,21 @@ export class Input {
 
   get direction() {
     return this.heldDirections[0]; // peut être undefined si aucune touche est appuyée
+  }
+
+  // appelée chaque frame, pas besoin de tracker le delta
+  update() {
+    // Check a chaque frame pour savoir si il y a de nouvelles inputs pressées par l'utilisateur
+    this.lastKeys = { ...this.keys };
+  }
+
+  // Logique de vérification pour savoir si une touche est enfoncée ou juste pressée une fois
+  getActionJustPressed(keyCode) {
+    let justPressed = false;
+    if (this.keys[keyCode] && !this.lastKeys[keyCode]) {
+      justPressed = true;
+    }
+    return justPressed;
   }
 
   onArrowPressed(direction) {
