@@ -54,6 +54,13 @@ export class SpriteTextString extends GameObject {
       frameSize: new Vector2(256, 64),
     });
 
+    // Creation du portrait
+    this.portrait = new Sprite({
+      resource: resources.images.portraits,
+      hFrames: 4,
+      frame: config.portraitFrame ?? 0,
+    });
+
     // Typewriter
     this.showingIndex = 0; // index de la lettre a afficher
     this.finalIndex = this.words.reduce(
@@ -95,9 +102,12 @@ export class SpriteTextString extends GameObject {
     // Draw le backdrop (rectangle)
     this.backdrop.drawImage(ctx, drawPosX, drawPosY);
 
+    // Draw le portrait
+    this.portrait.drawImage(ctx, drawPosX + 6, drawPosY + 6);
+
     // Configuration du style du texte
-    const PADDING_LEFT = 7;
-    const PADDING_TOP = 7;
+    const PADDING_LEFT = 27;
+    const PADDING_TOP = 9;
     const LINE_WIDTH_MAX = 240;
     const LINE_VERTICAL_HEIGHT = 14;
 

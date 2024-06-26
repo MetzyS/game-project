@@ -35,7 +35,7 @@ export class Main extends GameObject {
         const content = withObject.getContent();
         // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
         const textbox = new SpriteTextString({
-          potraitFrame: content.portraitFrame,
+          portraitFrame: content.portraitFrame,
           string: content.string,
         });
         this.addChild(textbox);

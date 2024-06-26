@@ -40,18 +40,16 @@ export class CaveLevel1 extends Level {
     const rod = new Rod(gridCells(9), gridCells(6));
     this.addChild(rod);
 
-    const npc1 = new Npc(
-      gridCells(5),
-      gridCells(5),
-      "Salut! Je suis un bon gros PNJ!"
-    );
+    const npc1 = new Npc(gridCells(5), gridCells(5), {
+      content: "Salut! Je suis un bon gros PNJ!",
+      portraitFrame: 1,
+    });
     this.addChild(npc1);
 
-    const npc2 = new Npc(
-      gridCells(8),
-      gridCells(5),
-      "Hey! Moi aussi je suis un bon gros PNJ"
-    );
+    const npc2 = new Npc(gridCells(8), gridCells(5), {
+      content: "Hey! Moi aussi je suis un bon gros PNJ",
+      portraitFrame: 0,
+    });
     this.addChild(npc2);
 
     this.walls = new Set();

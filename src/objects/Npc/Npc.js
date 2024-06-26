@@ -4,7 +4,7 @@ import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
 
 export class Npc extends GameObject {
-  constructor(x, y, textContent) {
+  constructor(x, y, textConfig = {}) {
     super({
       position: new Vector2(x, y),
     });
@@ -13,7 +13,8 @@ export class Npc extends GameObject {
     this.isSolid = true;
 
     // Texte dialogue
-    this.textContent = textContent;
+    this.textContent = textConfig.content;
+    this.textPortraitFrame = textConfig.portraitFrame;
 
     const shadow = new Sprite({
       resource: resources.images.shadow,
@@ -37,7 +38,7 @@ export class Npc extends GameObject {
     // Ici logique de story flag (si tel action faite => tel dialogue...)
 
     return {
-      portraitFrame: 1, // frame 1 du spreadsheet
+      portraitFrame: this.textPortraitFrame, // frame 1 du spreadsheet
       string: this.textContent,
     };
   }

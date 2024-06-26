@@ -19,7 +19,8 @@ class Resources {
 
       // HUD
       textBox: "/sprites/text-box.png",
-      fontWhite: "/sprites/Sheet_Font1_White.png",
+      fontWhite: "/sprites/sheet-font-white-1.png",
+      portraits: "/sprites/portraits-sheet.png",
     };
 
     // bucket pour tout les assets
