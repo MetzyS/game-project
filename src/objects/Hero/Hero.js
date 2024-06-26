@@ -76,7 +76,7 @@ export class Hero extends GameObject {
     });
     // Débloque les déplacements à la fermeture d'une textbox
     events.on("END_TEXT_BOX", this, () => {
-      this.isLocked = true;
+      this.isLocked = false;
     });
   }
 
