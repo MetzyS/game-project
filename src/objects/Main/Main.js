@@ -20,18 +20,19 @@ export class Main extends GameObject {
   ready() {
     const inventory = new Inventory(); // Inventaire
     this.addChild(inventory);
-    // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
-    setTimeout(() => {
-      const textbox = new SpriteTextString(
-        "Salut! Ceci est un dialogue. Salut! Ceci est un dialogue. Salut! Ceci est un dialogue."
-      );
-      this.addChild(textbox);
-    }, 300);
 
     console.log("CHANGE_LEVEL", this);
     // Listen l'event "CHANGE_LEVEL" et fait passer le paramètre newLevelInstance à this.setLevel (pour changer de niveau)
     events.on("CHANGE_LEVEL", this, (newLevelInstance) => {
       this.setLevel(newLevelInstance);
+    });
+
+    // Lance la textbox
+    events.on("HERO_REQUESTS_ACTION", this, () => {
+      // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
+      const textbox = new SpriteTextString("Salut! Ceci est un dialogue.");
+      this.addChild(textbox);
+      events.emit("START_TEXT_BOX");
     });
   }
 

@@ -55,10 +55,12 @@ export class Hero extends GameObject {
 
     this.addChild(this.body);
 
+    // variables state
     this.facingDirection = DOWN;
     this.destinationPosition = this.position.duplicate();
     this.itemPickupTime = 0; // permettra de stopper les mouvements un certain temps (en ms) lorsque le hero ramasse un objet
     this.itemPickupShell = null; // permettra d'afficher l'objet (une copie de l'objet) ramassé au dessus de la tête du hero
+    this.isLocked = false; // permettra d'entraver les mouvements du hero
 
     // Reaction à l'event "PICKS_UP_ITEM"
     events.on("HERO_PICKS_UP_ITEM", this, (data) => {
@@ -67,7 +69,23 @@ export class Hero extends GameObject {
     });
   }
 
+  ready() {
+    // Bloque les déplacements lors de l'affichage d'une textbox
+    events.on("START_TEXT_BOX", this, () => {
+      this.isLocked = true;
+    });
+    // Débloque les déplacements à la fermeture d'une textbox
+    events.on("END_TEXT_BOX", this, () => {
+      this.isLocked = true;
+    });
+  }
+
   step(delta, root) {
+    // Empeche toute action si le personnage est locked
+    if (this.isLocked) {
+      return;
+    }
+
     if (this.itemPickupTime > 0) {
       this.workOnItemPickup(delta);
       return;
@@ -78,8 +96,8 @@ export class Hero extends GameObject {
     const input = root.input;
     // verif si l'utilisateur appuie sur espace => emit un event "HERO_REQUEST_ACTION"
     if (input?.getActionJustPressed("Space")) {
-      console.log("HERO_REQUEST_ACTION", this);
-      events.emit("HERO_REQUEST_ACTION");
+      console.log("HERO_REQUESTS_ACTION", this);
+      events.emit("HERO_REQUESTS_ACTION");
     }
 
     // calcul en px de la distance entre la position actuelle et la destination

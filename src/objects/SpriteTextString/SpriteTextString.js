@@ -76,6 +76,7 @@ export class SpriteTextString extends GameObject {
       }
 
       // Ferme la textbox
+      console.log("END_TEXT_BOX", this);
       events.emit("END_TEXT_BOX");
     }
 
