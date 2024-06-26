@@ -28,17 +28,25 @@ export class Main extends GameObject {
     });
 
     // Lance la textbox
-    events.on("HERO_REQUESTS_ACTION", this, () => {
-      // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
-      const textbox = new SpriteTextString("Salut! Ceci est un dialogue.");
-      this.addChild(textbox);
-      events.emit("START_TEXT_BOX");
+    events.on("HERO_REQUESTS_ACTION", this, (withObject) => {
+      // verifie si l'obj avec lequel on interragis existe
+      if (typeof withObject.getContent === "function") {
+        // recupère le str a afficher + le portrait (si portrait il y a)
+        const content = withObject.getContent();
+        // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
+        const textbox = new SpriteTextString({
+          potraitFrame: content.portraitFrame,
+          string: content.string,
+        });
+        this.addChild(textbox);
+        events.emit("START_TEXT_BOX");
 
-      // Attends de recevoir l'event END_TEXT_BOX, supprime la text box et unsubscribe (ne listen plus) "END_TEXT_BOX" (pour éviter les memory leaks)
-      const endingSub = events.on("END_TEXT_BOX", this, () => {
-        textbox.destroy();
-        events.off(endingSub);
-      });
+        // Attends de recevoir l'event END_TEXT_BOX, supprime la text box et unsubscribe (ne listen plus) "END_TEXT_BOX" (pour éviter les memory leaks)
+        const endingSub = events.on("END_TEXT_BOX", this, () => {
+          textbox.destroy();
+          events.off(endingSub);
+        });
+      }
     });
   }
 

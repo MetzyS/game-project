@@ -29,4 +29,11 @@ export class Npc extends GameObject {
     });
     this.addChild(body);
   }
+
+  getContent() {
+    return {
+      portraitFrame: 1, // frame 1 du spreadsheet
+      string: "Comment m'avez vous trouve!?",
+    };
+  }
 }

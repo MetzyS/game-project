@@ -7,16 +7,16 @@ import { Vector2 } from "../../Vector2";
 import { getCharacterFrame, getCharacterWidth } from "./spriteFontMap";
 
 export class SpriteTextString extends GameObject {
-  constructor(str) {
+  constructor(config = {}) {
     super({
       position: new Vector2(32, 110), // En bas de l'écran
     });
 
+    // Draw top layer
     this.drawLayer = "HUD";
 
-    const content = str ?? "Texte par défaut";
-
     // Array avec les mots de "content"
+    const content = config.string ?? "Texte par defaut";
     this.words = content.split(" ").map((word) => {
       // Valeur de la largeur (en px) du mot
       let wordWidth = 0;

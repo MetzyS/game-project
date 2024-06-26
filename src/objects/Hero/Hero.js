@@ -96,8 +96,18 @@ export class Hero extends GameObject {
     const input = root.input;
     // verif si l'utilisateur appuie sur espace => emit un event "HERO_REQUEST_ACTION"
     if (input?.getActionJustPressed("Space")) {
-      console.log("HERO_REQUESTS_ACTION", this);
-      events.emit("HERO_REQUESTS_ACTION");
+      // Cherche un objet au bloc en face (par rapport a la direction regardée)
+      const objAtPosition = this.parent.children.find((child) => {
+        return child.position.matches(
+          this.position.toNeighbor(this.facingDirection)
+        );
+      });
+
+      // Si il y a un objet, request action
+      if (objAtPosition) {
+        console.log("HERO_REQUESTS_ACTION", this);
+        events.emit("HERO_REQUESTS_ACTION", objAtPosition);
+      }
     }
 
     // calcul en px de la distance entre la position actuelle et la destination
