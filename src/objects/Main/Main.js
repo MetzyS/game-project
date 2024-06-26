@@ -16,10 +16,12 @@ export class Main extends GameObject {
     this.input = new Input(); // Ajout des inputs
     this.camera = new Camera(); // Caméra
     this.inventory = new Inventory(); // Inventaire
+    this.addChild(this.inventory);
     // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
     this.textbox = new SpriteTextString(
       "Salut! Ceci est un dialogue. Salut! Ceci est un dialogue. Salut! Ceci est un dialogue."
     );
+    this.addChild(this.textbox);
   }
 
   ready() {
@@ -56,16 +58,27 @@ export class Main extends GameObject {
   }
 
   /**
-   * Affiche le foreground (niveaux)
+   * Affiche les objets (hero, objets au sol, exits...)
+   * @param {CanvasContext} ctx
+   */
+  drawObjects(ctx) {
+    this.children.forEach((child) => {
+      if (child.drawLayer !== "HUD") {
+        child.draw(ctx, 0, 0);
+      }
+    });
+  }
+
+  /**
+   * Affiche le foreground (niveau, inventaire...)
    * @param {CanvasContext} ctx
    */
   drawForeground(ctx) {
-    // Affiche l'inventaire à la position définie (0, 1px)
-    this.inventory.draw(
-      ctx,
-      this.inventory.position.x,
-      this.inventory.position.y
-    );
-    this.textbox.draw(ctx, 0, 0);
+    // Affiche les évenements du layer "HUD"
+    this.children.forEach((child) => {
+      if (child.drawLayer === "HUD") {
+        child.draw(ctx, 0, 0);
+      }
+    });
   }
 }

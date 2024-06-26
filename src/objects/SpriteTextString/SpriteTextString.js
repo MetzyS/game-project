@@ -9,6 +9,9 @@ export class SpriteTextString extends GameObject {
     super({
       position: new Vector2(32, 110), // En bas de l'écran
     });
+
+    this.drawLayer = "HUD";
+
     const content = str ?? "Texte par défaut";
 
     // Array avec les mots de "content"

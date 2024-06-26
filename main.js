@@ -39,12 +39,12 @@ const draw = () => {
   }
 
   // Draw les la mainScene avec les objets
-  mainScene.draw(ctx, 0, 0);
+  mainScene.drawObjects(ctx);
 
   // Restaure le state original
   ctx.restore();
 
-  // Affiche tout ce qui doit rester en haut du canvas (background, inventaire...)
+  // Affiche tout ce qui doit rester au foreground (niveau, inventaire, text box...)
   mainScene.drawForeground(ctx);
 };
 
