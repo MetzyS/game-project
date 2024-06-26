@@ -51,6 +51,23 @@ export class SpriteTextString extends GameObject {
       resource: resources.images.textBox,
       frameSize: new Vector2(256, 64),
     });
+
+    // Typewriter
+    this.showingIndex = 0; // index de la lettre a afficher
+    this.textSpeed = 30; // temps en ms entre chaque lettres
+    this.timeUntilNextShow = this.textSpeed;
+  }
+
+  step(delta) {
+    // delta = durée entre les refresh de la gameloop
+    this.timeUntilNextShow -= delta;
+    if (this.timeUntilNextShow <= 0) {
+      // Affiche la lettre suivante
+      this.showingIndex += 1;
+
+      // Reset time counter pour la prochaine lettre
+      this.timeUntilNextShow = this.textSpeed;
+    }
   }
 
   drawImage(ctx, drawPosX, drawPosY) {
@@ -66,6 +83,7 @@ export class SpriteTextString extends GameObject {
     // Position initale du curseur
     let cursorX = drawPosX + PADDING_LEFT;
     let cursorY = drawPosY + PADDING_TOP;
+    let currentShowingIndex = 0; // index de la lettre à afficher
 
     this.words.forEach((word) => {
       // Verification si le prochain mot entre dans la ligne
@@ -76,6 +94,11 @@ export class SpriteTextString extends GameObject {
       }
 
       word.chars.forEach((char) => {
+        // Stop la loop si le temps d'attente entre l'affichage de deux lettres (typewriter) n'est pas encore atteint
+        if (currentShowingIndex > this.showingIndex) {
+          return;
+        }
+
         const { sprite, width } = char;
 
         const withCharOffset = cursorX - 5; // retire l'espace vide autour des lettres (5px environ)
@@ -86,6 +109,9 @@ export class SpriteTextString extends GameObject {
 
         // Ajoute 1px d'espace entre les lettres
         cursorX += 1;
+
+        // Incrémente l'index de la lettre à afficher (typewriter)
+        currentShowingIndex += 1;
       });
 
       //Déplace le curseur (ajoute un espace de 3px entre chaque mot)

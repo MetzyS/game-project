@@ -15,16 +15,19 @@ export class Main extends GameObject {
     this.level = null; // Niveau (sprite image)
     this.input = new Input(); // Ajout des inputs
     this.camera = new Camera(); // Caméra
-    this.inventory = new Inventory(); // Inventaire
-    this.addChild(this.inventory);
-    // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
-    this.textbox = new SpriteTextString(
-      "Salut! Ceci est un dialogue. Salut! Ceci est un dialogue. Salut! Ceci est un dialogue."
-    );
-    this.addChild(this.textbox);
   }
 
   ready() {
+    const inventory = new Inventory(); // Inventaire
+    this.addChild(inventory);
+    // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
+    setTimeout(() => {
+      const textbox = new SpriteTextString(
+        "Salut! Ceci est un dialogue. Salut! Ceci est un dialogue. Salut! Ceci est un dialogue."
+      );
+      this.addChild(textbox);
+    }, 300);
+
     console.log("CHANGE_LEVEL", this);
     // Listen l'event "CHANGE_LEVEL" et fait passer le paramètre newLevelInstance à this.setLevel (pour changer de niveau)
     events.on("CHANGE_LEVEL", this, (newLevelInstance) => {
