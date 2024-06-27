@@ -44,18 +44,25 @@ export class CaveLevel1 extends Level {
     const npc1 = new Npc(gridCells(5), gridCells(5), {
       // content: "Salut! Je suis un bon gros PNJ!",
       content: [
+        //Texte n°3
+        {
+          string: "... J'en peux plus de ce type.", // Contenu textbox
+          requires: [TALKED_TO_B], // Story flags requis pour le déclenchement (ex ["TALKED_TO_A", "TALKED_TO_B", ...]).
+          bypass: [TALKED_TO_A], // Story flags qui empêchent le déclenchement (ex, HERO_LOOT_SWORD => pas besoin de lui dire qu'il peut loot une épée..)
+          addsFlag: TALKED_TO_A,
+        },
         //Texte n°2
         {
-          string: "... Il faut que je retourne travailler, a plus", // Contenu textbox
-          requires: [TALKED_TO_A], // Story flags requis pour le déclenchement (ex ["TALKED_TO_A", "TALKED_TO_B", ...]).
-          bypass: [], // Story flags qui empêchent le déclenchement (ex, HERO_LOOT_SWORD => pas besoin de lui dire qu'il peut loot une épée..)
+          string: "C'est le pire collegue que j'ai jamais eu!",
+          requires: [TALKED_TO_A],
+          bypass: [],
+          addsFlag: TALKED_TO_A,
         },
         //Texte n°1
         {
-          string: "Bienvenue dans la mine! Ici on bosse tres dur",
+          string:
+            "Du travail, encore du travail... Oh! Je ne t'avais pas vu, bienvenue a la mine!",
           requires: [],
-          bypass: [],
-          addsFlag: TALKED_TO_A,
         },
       ],
       portraitFrame: 1,
@@ -65,7 +72,8 @@ export class CaveLevel1 extends Level {
     const npc2 = new Npc(gridCells(8), gridCells(5), {
       content: [
         {
-          string: "Travailler dans une mine, c'est pas facile...",
+          string:
+            "Travailler dans une mine, c'est pas facile... Surtout avec un collegue aussi feneant...",
           requires: [TALKED_TO_B],
           bypass: [],
         },
