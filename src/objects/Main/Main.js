@@ -2,6 +2,7 @@ import { Camera } from "../../Camera";
 import { events } from "../../Events";
 import { GameObject } from "../../GameObject";
 import { Input } from "../../Input";
+import { storyFlags } from "../../StoryFlags";
 import { Inventory } from "../Inventory/Inventory";
 // import { TextBox } from "../TextBox/TextBox";
 import { SpriteTextString } from "../SpriteTextString/SpriteTextString";
@@ -31,8 +32,21 @@ export class Main extends GameObject {
     events.on("HERO_REQUESTS_ACTION", this, (withObject) => {
       // verifie si l'obj avec lequel on interragis existe
       if (typeof withObject.getContent === "function") {
-        // recupère le str a afficher + le portrait (si portrait il y a)
+        // recupère le contenu a afficher (texte) + le portrait (si portrait il y a)
         const content = withObject.getContent();
+        // console.log(content);
+        // Si il n'y a pas de contenu, return
+        if (!content) {
+          return;
+        }
+
+        // Ajout potentiel d'un story flag
+        if (content.addsFlag) {
+          console.log("ADDS FLAG:", content.addsFlag, " => ", content);
+          storyFlags.add(content.addsFlag);
+        }
+
+        // Affiche la textbox + portrait
         // this.textbox = new TextBox(); // Ancienne méthode (avec fichier TTF)
         const textbox = new SpriteTextString({
           portraitFrame: content.portraitFrame,

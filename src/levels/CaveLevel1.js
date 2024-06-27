@@ -1,6 +1,7 @@
 import { events } from "../Events";
 import { resources } from "../Resource";
 import { Sprite } from "../Sprite";
+import { TALKED_TO_A, TALKED_TO_B } from "../StoryFlags";
 import { Vector2 } from "../Vector2";
 import { gridCells } from "../helpers/grid";
 import { Exit } from "../objects/Exit/Exit";
@@ -41,13 +42,41 @@ export class CaveLevel1 extends Level {
     this.addChild(rod);
 
     const npc1 = new Npc(gridCells(5), gridCells(5), {
-      content: "Salut! Je suis un bon gros PNJ!",
+      // content: "Salut! Je suis un bon gros PNJ!",
+      content: [
+        //Texte n°2
+        {
+          string: "... Il faut que je retourne travailler, a plus", // Contenu textbox
+          requires: [TALKED_TO_A], // Story flags requis pour le déclenchement (ex ["TALKED_TO_A", "TALKED_TO_B", ...]).
+          bypass: [], // Story flags qui empêchent le déclenchement (ex, HERO_LOOT_SWORD => pas besoin de lui dire qu'il peut loot une épée..)
+        },
+        //Texte n°1
+        {
+          string: "Bienvenue dans la mine! Ici on bosse tres dur",
+          requires: [],
+          bypass: [],
+          addsFlag: TALKED_TO_A,
+        },
+      ],
       portraitFrame: 1,
     });
     this.addChild(npc1);
 
     const npc2 = new Npc(gridCells(8), gridCells(5), {
-      content: "Hey! Moi aussi je suis un bon gros PNJ",
+      content: [
+        {
+          string: "Travailler dans une mine, c'est pas facile...",
+          requires: [TALKED_TO_B],
+          bypass: [],
+        },
+        {
+          string:
+            "Hey! Je t'ai jamais vu dans le coin auparavant, moi c'est Billy!",
+          requires: [],
+          bypass: [],
+          addsFlag: TALKED_TO_B,
+        },
+      ],
       portraitFrame: 0,
     });
     this.addChild(npc2);

@@ -1,6 +1,7 @@
 import { GameObject } from "../../GameObject";
 import { resources } from "../../Resource";
 import { Sprite } from "../../Sprite";
+import { storyFlags } from "../../StoryFlags";
 import { Vector2 } from "../../Vector2";
 
 export class Npc extends GameObject {
@@ -36,10 +37,16 @@ export class Npc extends GameObject {
 
   getContent() {
     // Ici logique de story flag (si tel action faite => tel dialogue...)
+    const match = storyFlags.getRelevantScenario(this.textContent);
+    if (!match) {
+      console.warn("Aucune correspondance dans la liste", this.textContent);
+      return null;
+    }
 
     return {
       portraitFrame: this.textPortraitFrame, // frame 1 du spreadsheet
-      string: this.textContent,
+      string: match.string,
+      addsFlag: match.addsFlag ?? null,
     };
   }
 }

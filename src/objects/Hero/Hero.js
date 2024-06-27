@@ -2,7 +2,7 @@ import { Animations } from "../../Animations";
 import { events } from "../../Events";
 import { FrameIndexPattern } from "../../FrameIndexPattern";
 import { GameObject } from "../../GameObject";
-import { DOWN, LEFT, RIGHT, UP } from "../../Input";
+import { DOWN, Input, LEFT, RIGHT, UP } from "../../Input";
 import { resources } from "../../Resource";
 import { Sprite } from "../../Sprite";
 import { Vector2 } from "../../Vector2";
