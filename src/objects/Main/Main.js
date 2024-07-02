@@ -64,6 +64,7 @@ export class Main extends GameObject {
     });
 
     events.on("HERO_OPENS_INVENTORY", this, () => {
+      inventory.toggleInventory();
       console.log("MAIN OPENS INVENTORY");
       // this.addChild(inventory); // voir comment gérer ouverture / fermeture ?
     });

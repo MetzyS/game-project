@@ -10,6 +10,8 @@ export class Inventory extends GameObject {
       position: new Vector2(0, 1),
     });
 
+    this.isOpen = false;
+
     this.drawLayer = "HUD";
 
     this.nextId = 0;
@@ -53,16 +55,29 @@ export class Inventory extends GameObject {
 
     // affiche les nouvelles données de l'inventaire
     this.items.forEach((item, index) => {
-      const sprite = new Sprite({
-        resource: item.image,
-        position: new Vector2(index * 12, 0), // séparation des items de 8px dans l'affichage de l'inventaire
-      });
-      this.addChild(sprite);
+      if (this.isOpen) {
+        const sprite = new Sprite({
+          resource: item.image,
+          position: new Vector2(index * 12, 0), // séparation des items de 8px dans l'affichage de l'inventaire
+        });
+        this.addChild(sprite);
+      }
     });
   }
 
   removeFromInventory(id) {
     this.items = this.items.filter((item) => item.id !== id);
     this.renderInventory();
+  }
+
+  toggleInventory() {
+    this.isOpen = !this.isOpen;
+    console.log(this.isOpen);
+    if (this.isOpen) {
+      this.renderInventory();
+      return;
+    }
+    this.removeFromInventory();
+    return;
   }
 }
