@@ -111,8 +111,8 @@ export class Hero extends GameObject {
     }
 
     if (input?.getActionJustPressed("KeyI")) {
-      console.log("HERO_OPENS_INVENTORY", this);
-      events.emit("HERO_OPENS_INVENTORY", this);
+      console.log("HERO_TOGGLES_INVENTORY", this);
+      events.emit("HERO_TOGGLES_INVENTORY", this);
       // return false;
     }
 
