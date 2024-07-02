@@ -110,6 +110,12 @@ export class Hero extends GameObject {
       }
     }
 
+    if (input?.getActionJustPressed("KeyI")) {
+      console.log("HERO_OPENS_INVENTORY", this);
+      events.emit("HERO_OPENS_INVENTORY", this);
+      // return false;
+    }
+
     // calcul en px de la distance entre la position actuelle et la destination
     const distance = moveTowards(this, this.destinationPosition, 1);
     const hasArrived = distance <= 1; // True/false est ce que le personnage est bien arrivé a destination
