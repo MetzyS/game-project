@@ -21,6 +21,7 @@ class Resources {
       textBox: "/sprites/text-box.png",
       fontWhite: "/sprites/sheet-font-white-1.png",
       portraits: "/sprites/portraits-sheet.png",
+      inventory: "/sprites/inventory.png",
     };
 
     // bucket pour tout les assets

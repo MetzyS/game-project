@@ -53,16 +53,23 @@ export class Inventory extends GameObject {
     // supprime les données (qui seront obsolètes) de l'inventaire
     this.children.forEach((child) => child.destroy());
 
-    // affiche les nouvelles données de l'inventaire
-    this.items.forEach((item, index) => {
-      if (this.isOpen) {
+    if (this.isOpen) {
+      // test affiche le cadre
+      const inventorySprite = new Sprite({
+        resource: resources.images.inventory,
+        frameSize: new Vector2(84, 50),
+        // position: new Vector2(0, 0),
+      });
+      this.addChild(inventorySprite);
+      // affiche les nouvelles données de l'inventaire
+      this.items.forEach((item, index) => {
         const sprite = new Sprite({
           resource: item.image,
-          position: new Vector2(index * 12, 0), // séparation des items de 8px dans l'affichage de l'inventaire
+          position: new Vector2(index * 17, 0), // séparation des items de 8px dans l'affichage de l'inventaire
         });
         this.addChild(sprite);
-      }
-    });
+      });
+    }
   }
 
   removeFromInventory(id) {
