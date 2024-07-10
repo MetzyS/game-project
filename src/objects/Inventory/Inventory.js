@@ -42,7 +42,7 @@ export class Inventory extends GameObject {
 
     // test suppression item inventaire => removeFromInventory(id)
     // setTimeout(() => {
-    //   this.removeFromInventory(-2);
+    //   this.removeFromInventory(-1);
     // }, 2000);
 
     // affichage initial de l'inventaire
