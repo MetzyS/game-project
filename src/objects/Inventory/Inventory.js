@@ -10,7 +10,7 @@ export class Inventory extends GameObject {
       position: new Vector2(0, 1),
     });
 
-    this.isOpen = false;
+    this.isOpen = true;
 
     this.drawLayer = "HUD";
 
@@ -37,6 +37,7 @@ export class Inventory extends GameObject {
         id: this.nextId,
         image: resources.images.rod,
       });
+      console.log(this.items);
       this.renderInventory();
     });
 
@@ -54,14 +55,6 @@ export class Inventory extends GameObject {
     this.children.forEach((child) => child.destroy());
 
     if (this.isOpen) {
-      // test affiche le cadre
-      const inventorySprite = new Sprite({
-        resource: resources.images.inventory,
-        frameSize: new Vector2(84, 50),
-        // position: new Vector2(0, 0),
-      });
-      this.addChild(inventorySprite);
-      // affiche les nouvelles données de l'inventaire
       this.items.forEach((item, index) => {
         const sprite = new Sprite({
           resource: item.image,
