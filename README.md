@@ -1,0 +1,3 @@
+Base (game engine) pour RPG en JavaScript:
+
+POO, game loop, keyboard inputs, collisions, animations, event system, camera system, PNJs, dialogues, story flags, signals...
