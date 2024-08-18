@@ -38,11 +38,10 @@ export class CaveLevel1 extends Level {
     const hero = new Hero(this.heroStartPosition.x, this.heroStartPosition.y);
     this.addChild(hero);
 
-    const rod = new Rod(gridCells(9), gridCells(6));
+    const rod = new Rod(gridCells(7), gridCells(3));
     this.addChild(rod);
 
-    const npc1 = new Npc(gridCells(5), gridCells(5), {
-      // content: "Salut! Je suis un bon gros PNJ!",
+    const npc1 = new Npc(gridCells(8), gridCells(5), {
       content: [
         //Texte n°3
         {
@@ -69,7 +68,7 @@ export class CaveLevel1 extends Level {
     });
     this.addChild(npc1);
 
-    const npc2 = new Npc(gridCells(8), gridCells(5), {
+    const npc2 = new Npc(gridCells(12), gridCells(3), {
       content: [
         {
           string:
@@ -85,11 +84,96 @@ export class CaveLevel1 extends Level {
           addsFlag: TALKED_TO_B,
         },
       ],
-      portraitFrame: 0,
+      portraitFrame: 1,
     });
     this.addChild(npc2);
 
     this.walls = new Set();
+
+    // Walls exterieurs
+    // => haut
+    this.walls.add(`32,0`);
+    this.walls.add(`48,0`);
+    this.walls.add(`64,0`);
+    this.walls.add(`80,0`);
+    this.walls.add(`96,0`);
+    this.walls.add(`112,0`);
+    this.walls.add(`128,0`);
+    this.walls.add(`144,0`);
+    this.walls.add(`160,0`);
+    this.walls.add(`176,0`);
+    this.walls.add(`192,0`);
+    this.walls.add(`208,0`);
+    this.walls.add(`224,0`);
+    this.walls.add(`240,0`);
+    this.walls.add(`256,0`);
+    this.walls.add(`272,0`);
+
+    // => gauche
+    this.walls.add(`16,16`);
+    this.walls.add(`16,32`);
+    this.walls.add(`16,48`);
+    this.walls.add(`16,64`);
+    this.walls.add(`16,80`);
+    this.walls.add(`16,96`);
+    this.walls.add(`16,112`);
+
+    // => bas
+    this.walls.add(`32,128`);
+    this.walls.add(`48,128`);
+    this.walls.add(`64,128`);
+    this.walls.add(`80,128`);
+    this.walls.add(`96,128`);
+    this.walls.add(`112,128`);
+    this.walls.add(`128,128`);
+    this.walls.add(`144,128`);
+    this.walls.add(`160,128`);
+    this.walls.add(`176,128`);
+    this.walls.add(`192,128`);
+    this.walls.add(`208,128`);
+    this.walls.add(`224,128`);
+    this.walls.add(`240,128`);
+    this.walls.add(`256,128`);
+    this.walls.add(`272,128`);
+
+    // => droite
+    this.walls.add(`288,16`);
+    this.walls.add(`288,32`);
+    this.walls.add(`288,48`);
+    this.walls.add(`288,64`);
+    this.walls.add(`288,80`);
+    this.walls.add(`288,96`);
+    this.walls.add(`288,112`);
+
+    // blocks
+    this.walls.add(`48,16`);
+    this.walls.add(`64,16`);
+    this.walls.add(`80,48`);
+    this.walls.add(`96,48`);
+    this.walls.add(`96,64`);
+    this.walls.add(`112,64`);
+    this.walls.add(`128,48`);
+    this.walls.add(`192,80`);
+    this.walls.add(`208,80`);
+    this.walls.add(`224,96`);
+
+    // rochers
+    this.walls.add(`144,16`);
+    this.walls.add(`192,32`);
+    this.walls.add(`208,32`);
+    this.walls.add(`208,48`);
+    this.walls.add(`256,80`);
+
+    // eau
+    this.walls.add(`96,96`);
+    this.walls.add(`112,96`);
+    this.walls.add(`128,96`);
+
+    this.walls.add(`176,96`);
+    this.walls.add(`192,96`);
+    this.walls.add(`208,96`);
+    this.walls.add(`240,32`);
+    this.walls.add(`256,32`);
   }
 
   ready() {
